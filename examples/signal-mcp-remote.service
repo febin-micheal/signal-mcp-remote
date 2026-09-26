@@ -1,0 +1,22 @@
+# systemd user unit for signal-mcp-remote.
+#   cp examples/signal-mcp-remote.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload && systemctl --user enable --now signal-mcp-remote
+# Replace <PATH-TO-SIGNAL-MCP-REMOTE> with the output of `command -v signal-mcp-remote`
+# (for a pipx install that is usually %h/.local/bin/signal-mcp-remote).
+
+[Unit]
+Description=Signal over remote MCP (signal-mcp-remote)
+Wants=signal-cli-daemon.service
+After=signal-cli-daemon.service
+StartLimitIntervalSec=0
+
+[Service]
+EnvironmentFile=-%h/.config/signal-mcp-remote/env
+ExecStart=<PATH-TO-SIGNAL-MCP-REMOTE> serve
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

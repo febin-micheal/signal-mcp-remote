@@ -1,0 +1,17 @@
+# systemd user unit for the signal-cli daemon that signal-mcp-remote talks to.
+# Replace <ACCOUNT> with your registered or linked number in international
+# format, and <PATH-TO-SIGNAL-CLI> with the output of `command -v signal-cli`.
+
+[Unit]
+Description=signal-cli daemon (HTTP JSON-RPC on 127.0.0.1:7583)
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=<PATH-TO-SIGNAL-CLI> --scrub-log -a <ACCOUNT> daemon --http 127.0.0.1:7583 --receive-mode on-connection --no-receive-stdout --ignore-stories
+Restart=on-failure
+RestartSec=10
+UMask=0077
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signal-mcp-remote"
+version = "1.0.0"
+description = "Remote (HTTP) MCP server for Signal Messenger: serve signal-mcp to claude.ai, mobile and other remote clients"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+# signal-mcp is pinned: this wrapper checks its exact tool list (79 tools) and
+# patches some of its internals at runtime.
+dependencies = [
+    "signal-mcp==1.36.0",
+    "mcp==2.2.0",
+    "uvicorn==0.53.0",
+    "httpx==0.28.1",
+]
+keywords = ["mcp", "mcp-server", "model-context-protocol", "signal", "signal-messenger", "signal-cli", "streamable-http", "claude", "ai-agents"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Communications :: Chat",
+]
+
+[project.optional-dependencies]
+# Only for the import_desktop / sync_desktop tools on Linux (Signal Desktop's
+# SQLCipher 4 database and the keyring-held key).
+desktop = [
+    "sqlcipher3-wheels==0.5.7",
+    "secretstorage==3.5.0",
+]
+
+[project.scripts]
+signal-mcp-remote = "signal_mcp_remote.server:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]

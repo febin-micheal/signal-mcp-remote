@@ -1,0 +1,12 @@
+# Optional: send yourself a Signal "Note to Self" when a newer signal-cli is
+# released. Pair with signal-cli-update-check.timer.
+
+[Unit]
+Description=Check for a newer signal-cli
+
+[Service]
+Type=oneshot
+EnvironmentFile=-%h/.config/signal-mcp-remote/env
+ExecStart=<PATH-TO-SIGNAL-MCP-REMOTE> check-update
+UMask=0077
+NoNewPrivileges=yes
