@@ -1,5 +1,7 @@
 # signal-mcp-remote
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/febin-micheal/signal-mcp-remote)](https://m8ven.ai/mcp/febin-micheal/signal-mcp-remote)
+
 **Remote (HTTP) MCP server for Signal Messenger.** It serves [signal-mcp](https://github.com/googlarz/signal-mcp) over streamable HTTP behind a bearer secret, so claude.ai custom connectors, the Claude mobile and desktop apps, Claude Code and other remote Model Context Protocol clients can read, search and send Signal messages through your own signal-cli daemon.
 
 signal-mcp is a local (stdio) server. This wrapper installs it as a dependency, puts an HTTP front on it, and tightens it for remote use: it hides dangerous tools, confines file paths, keeps one live connection to the signal-cli daemon so every incoming message is saved, and fixes a few Linux problems at runtime. signal-mcp's own files are never edited.
